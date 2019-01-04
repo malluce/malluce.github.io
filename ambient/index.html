@@ -10,14 +10,14 @@
         <script src="ambient.js"></script>
     </head>
     <body>
-        <p id="debug">
+        <p id="debug-text">
             Ambient light sensor value: <b id="sensor-value">unknown</b>.<br>
             This is considered <b id="value-class">unknown</b>.
         </p>
 
-        <button id="start" onclick="start(100);">Start</button>
-        <button id="stop">Stop</button>
-        <button id="debug" onclick="toggleDebug()">Toggle Debug</button><br>
+        <button id="start-btn" class="btn" onclick="start(100);">Start</button>
+        <button id="stop-btn" class="btn">Stop</button>
+        <button id="debug-btn" class="btn" onclick="toggleDebug()">Toggle Debug</button><br>
 
         <p id="content">
             I am <b>just</b> an example text.

@@ -41,7 +41,7 @@ var debug = true;
 function toggleDebug() {
     debug = !debug
 
-    var debugElem = document.getElementById("debug")
+    var debugElem = document.getElementById("debug-text")
 
     if(debug) {
         debugElem.style.visibility = "visible"
