@@ -5,19 +5,25 @@
         <title>AmbientLight-Aware Contrast</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" type="text/css" href="ambient.css">
+        <!-- contains the common style for both, light and dark themed web page-->
+        <link id="common-style" rel="stylesheet" type="text/css" href="ambient.css">
+
+        <!-- this style may change dependent on the ambient light. default theme is light-->
+        <link id="ambient-aware-style" rel="stylesheet" type="text/css" href="light.css">
 
         <script src="ambient.js"></script>
     </head>
     <body>
-        <p id="debug-text">
+        <p class="debug" id="debug-text">
             Ambient light sensor value: <b id="sensor-value">unknown</b>.<br>
             This is considered <b id="value-class">unknown</b>.
         </p>
 
-        <button id="start-btn" class="btn" onclick="start(100);">Start</button>
-        <button id="stop-btn" class="btn">Stop</button>
-        <button id="debug-btn" class="btn" onclick="toggleDebug()">Toggle Debug</button><br>
+        <button class="btn" id="start-btn" onclick="start(100)">Start</button>
+        <button class="btn" id="stop-btn">Stop</button>
+        <button class="btn" id="debug-btn" onclick="toggleDebug()">Toggle Debug</button>
+        <button class="debug" id="light-btn" onclick="light()">Light</button>
+        <button class="debug" id="dark-btn" onclick="dark()">Dark</button>
 
         <p id="content">
             I am <b>just</b> an example text.

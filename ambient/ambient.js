@@ -36,24 +36,48 @@ function start(threshold) {
     }
 }
 
+// by default debug is visible
 var debug = true;
 
+/**
+ * Toggles the visibility of debug elements, i.e. elements with class="debug".
+ */
 function toggleDebug() {
     debug = !debug
 
-    var debugElem = document.getElementById("debug-text")
+    var debugElems = document.getElementsByClassName("debug")
 
-    if(debug) {
-        debugElem.style.visibility = "visible"
-    } else {
-        debugElem.style.visibility = "hidden"
+    // ->""<- is on purpose. displays it like rendered by default.
+    var newDisplay = debug ? "" : "none"
+
+    for(var i = 0; i < debugElems.length; i++) {
+        debugElems[i].style.display = newDisplay
     }
 }
 
+// default style is light
+var currentStyle = "light";
+
 function light() {
+    // adapt debug text
     document.getElementById("value-class").innerHTML = "light"
+    
+    // change style
+    if (currentStyle != "light") {
+        document.getElementById("ambient-aware-style").setAttribute("href", "light.css")
+    }
+
+    currentStyle = "light"
 }
 
 function dark() {
+    // adapt debug text
     document.getElementById("value-class").innerHTML = "dark"
+
+    // change style
+    if (currentStyle != "dark") {
+        document.getElementById("ambient-aware-style").setAttribute("href", "dark.css")
+    }
+
+    currentStyle = "dark"
 }
