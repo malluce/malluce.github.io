@@ -4,12 +4,18 @@
         <meta charset="utf-8"/>
         <title>AmbientLight-Aware Contrast</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" type="text/css" href="ambient.css">
+
         <script src="ambient.js"></script>
     </head>
     <body>
-        <p>
-            Ambient light sensor value: <b id="sensor-value">unknown</b>.
+        <p id="debug">
+            Ambient light sensor value: <b id="sensor-value">unknown</b>.<br>
+            This is considered <b id="value-class">unknown</b>.
         </p>
+        <button>Start</button>
+        <button>Stop</button>
+        <button onclick="toggleDebug()">Toggle Debug</button>
     </body>
 </html>
