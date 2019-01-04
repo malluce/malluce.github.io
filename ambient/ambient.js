@@ -21,6 +21,6 @@ if ("AmbientLightSensor" in window) { // generic sensor API
 }
 
 function update(lux) {
-    document.getElementById("sensor-value").value = lux
+    document.getElementById("sensor-value").innerHTML = lux + " lux"
     console.log(lux)
 }
