@@ -1,4 +1,20 @@
 /**
+ * Event listener for generic sensor API.
+ * @param {*} event 
+ */
+function genericSensorAPIUpdate(event) {
+    update(sensor.illuminance)
+}
+
+/**
+ * Event listener for legacy sensor API.
+ * @param {*} event 
+ */
+function legacyAPIUpdate(event) {
+    update(event.value)
+}
+
+/**
  * 
  * @param {*} threshold 
  */
@@ -17,23 +33,32 @@ function start(threshold) {
         console.log("using AmbientLightSensor to retrieve lux values")
         try {
           var sensor = new AmbientLightSensor();
-          sensor.addEventListener("reading", function (event) {
-            update(sensor.illuminance);
-          });
+          sensor.addEventListener("reading", genericSensorAPIUpdate)
           sensor.start();
         } catch (e) {
           console.error(e);
         }
     } else if ("ondevicelight" in window) { // legacy API (Firefox)
         console.log("using ondevicelight to retrieve lux values")
-        function onUpdateDeviceLight(event) {
-          update(event.value);
-        }
-        
-        window.addEventListener("devicelight", onUpdateDeviceLight);
+        window.addEventListener("devicelight", legacyAPIUpdate);
     } else {
         alert("Your browser is not ambient light ready! Use Firefox, Edge, or Chrome with experimental Generic Sensor API Flag and try again.")
     }
+}
+
+function stop() {
+    if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
+        console.log("using AmbientLightSensor to retrieve lux values")
+        try {
+          var sensor = new AmbientLightSensor();
+          sensor.removeEventListener("reading", genericSensorAPIUpdate)
+        } catch (e) {
+          console.error(e);
+        }
+    } else if ("ondevicelight" in window) { // legacy API (Firefox)
+        console.log("using ondevicelight to retrieve lux values")
+        window.removeEventListener("devicelight", legacyAPIUpdate);
+    } 
 }
 
 // by default debug is visible
