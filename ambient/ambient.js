@@ -1,3 +1,12 @@
+// sensor object is stored here if it is used
+var sensor = undefined
+
+// by default debug is visible
+var debug = true;
+
+// default style is light
+var currentStyle = "light";
+
 /**
  * Event listener for generic sensor API.
  * @param {*} event 
@@ -32,7 +41,7 @@ function start(threshold) {
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("using AmbientLightSensor to retrieve lux values")
         try {
-          var sensor = new AmbientLightSensor();
+          sensor = new AmbientLightSensor();
           sensor.addEventListener("reading", genericSensorAPIUpdate)
           sensor.start();
         } catch (e) {
@@ -50,7 +59,6 @@ function stop() {
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("removing event listener from AmbientLightSensor")
         try {
-          var sensor = new AmbientLightSensor();
           sensor.removeEventListener("reading", genericSensorAPIUpdate)
         } catch (e) {
           console.error(e);
@@ -62,9 +70,6 @@ function stop() {
 
     setUnknown()
 }
-
-// by default debug is visible
-var debug = true;
 
 /**
  * Toggles the visibility of debug elements, i.e. elements with class="debug".
@@ -81,9 +86,6 @@ function toggleDebug() {
         debugElems[i].style.display = newDisplay
     }
 }
-
-// default style is light
-var currentStyle = "light";
 
 function light() {
     // adapt debug text
