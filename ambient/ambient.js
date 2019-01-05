@@ -14,21 +14,21 @@ function legacyAPIUpdate(event) {
     update(event.value)
 }
 
+function update(lux) {
+    setLux(lux)
+    console.log(lux)
+    if(lux > threshold) {
+        light()
+    } else {
+        dark()
+    }
+}
+
 /**
  * 
  * @param {*} threshold 
  */
 function start(threshold) {
-    function update(lux) {
-        document.getElementById("sensor-value").innerHTML = lux + " lux"
-        console.log(lux)
-        if(lux > threshold) {
-            light()
-        } else {
-            dark()
-        }
-    }
-
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("using AmbientLightSensor to retrieve lux values")
         try {
@@ -48,7 +48,7 @@ function start(threshold) {
 
 function stop() {
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
-        console.log("using AmbientLightSensor to retrieve lux values")
+        console.log("removing event listener from AmbientLightSensor")
         try {
           var sensor = new AmbientLightSensor();
           sensor.removeEventListener("reading", genericSensorAPIUpdate)
@@ -56,7 +56,7 @@ function stop() {
           console.error(e);
         }
     } else if ("ondevicelight" in window) { // legacy API (Firefox)
-        console.log("using ondevicelight to retrieve lux values")
+        console.log("removing event listener for devicelight")
         window.removeEventListener("devicelight", legacyAPIUpdate);
     } 
 
