@@ -7,6 +7,9 @@ var debug = true;
 // default style is light
 var currentStyle = "light";
 
+// stores the current threshold (for values > threshold, light theme is used otherwise dark)
+var thresholdVar = undefined
+
 /**
  * Event listener for generic sensor API.
  * @param {*} event 
@@ -38,6 +41,7 @@ function update(lux) {
  * @param {*} threshold 
  */
 function start(threshold) {
+    thresholdVar = threshold
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("using AmbientLightSensor to retrieve lux values")
         try {
