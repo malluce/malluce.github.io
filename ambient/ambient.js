@@ -54,6 +54,7 @@ function update(lux) {
         median = sortedSlidingWindow[Math.floor(middle)]
     }
 
+    console.log(slidingWindow)
     console.log(slidingWindow.sort((a,b) => a-b))
     console.log(median)
 
