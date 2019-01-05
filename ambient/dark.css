@@ -1,4 +1,10 @@
 body {
     background-color: black;
-    color: white;
+    color: brown;
+}
+
+button {
+    color: brown;
+    background-color: black;
+    border-color: rgb(85, 81, 81);
 }
