@@ -7,8 +7,12 @@ var debug = true;
 // default style is light
 var currentStyle = "light";
 
-// stores the current threshold (for values > threshold, light theme is used otherwise dark)
+// stores the current threshold (for values > threshold, light theme is used; otherwise dark)
 var currentThreshold = undefined
+
+var slidingWindow = []
+var currentIndex = 0
+var slidingWindowLength = undefined
 
 /**
  * Event listener for generic sensor API.
@@ -27,9 +31,30 @@ function legacyAPIUpdate(event) {
 }
 
 function update(lux) {
-    setLux(lux)
-    console.log(lux)
-    if(lux > currentThreshold) {
+    console.log("new: " + lux)
+    slidingWindow.push(lux)
+    console.log(slidingWindow)
+
+    if (slidingWindow.length < slidingWindowLength) {
+        return
+    } else if (slidingWindow.length > slidingWindowLength) {
+        if(slidingWindow.length + 1 != slidingWindowLength) {
+            console.error("unexpected window size: " + slidingWindow.length)
+        }
+        slidingWindow.shift()
+    }
+
+    var avg = 0
+
+    for (val in slidingWindow) {
+        avg += val
+    }
+
+    avg /= slidingWindow.length
+
+    setLux(avg)
+    console.log("avg: " + avg)
+    if(avg > currentThreshold) {
         light()
     } else {
         dark()
@@ -40,8 +65,9 @@ function update(lux) {
  * 
  * @param {*} threshold 
  */
-function start(threshold) {
+function start(threshold, slidingWindowLen) {
     currentThreshold = threshold
+    slidingWindowLength = slidingWindowLen
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("using AmbientLightSensor to retrieve lux values")
         try {
