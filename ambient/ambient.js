@@ -102,6 +102,7 @@ function stop() {
     } 
 
     setUnknown()
+    slidingWindow = []
 }
 
 /**

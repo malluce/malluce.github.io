@@ -19,6 +19,9 @@
             This is considered <b id="value-class">unknown</b>.
         </p>
 
+        <!--100lux is threshold
+            sliding window size of 10 -> 10 * 180 ms for first value
+        -->
         <button class="btn" id="start-btn" onclick="start(100, 10)">Start</button>
         <button class="btn" id="stop-btn" onclick="stop()">Stop</button>
         <button class="btn" id="debug-btn" onclick="toggleDebug()">Toggle Debug</button>
