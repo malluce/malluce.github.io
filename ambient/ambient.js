@@ -59,6 +59,8 @@ function stop() {
         console.log("using ondevicelight to retrieve lux values")
         window.removeEventListener("devicelight", legacyAPIUpdate);
     } 
+
+    setUnknown()
 }
 
 // by default debug is visible
@@ -85,11 +87,11 @@ var currentStyle = "light";
 
 function light() {
     // adapt debug text
-    document.getElementById("value-class").innerHTML = "light"
+    setLuxClass("light")
     
     // change style
     if (currentStyle != "light") {
-        document.getElementById("ambient-aware-style").setAttribute("href", "light.css")
+        setAmbientAwareStyle("light.css")
     }
 
     currentStyle = "light"
@@ -97,12 +99,29 @@ function light() {
 
 function dark() {
     // adapt debug text
-    document.getElementById("value-class").innerHTML = "dark"
+    setLuxClass("dark")
 
     // change style
     if (currentStyle != "dark") {
-        document.getElementById("ambient-aware-style").setAttribute("href", "dark.css")
+        setAmbientAwareStyle("dark.css")
     }
 
     currentStyle = "dark"
+}
+
+function setUnknown() {
+    document.getElementById("sensor-value").innerHTML = "unknown"
+    setLuxClass("unknown")
+}
+
+function setLux(lux) {
+    document.getElementById("sensor-value").innerHTML = lux + " lux"
+}
+
+function setLuxClass(className) {
+    document.getElementById("value-class").innerHTML = className
+}
+
+function setAmbientAwareStyle(styleSheetHref) {
+    document.getElementById("ambient-aware-style").setAttribute("href", styleSheetHref)
 }
