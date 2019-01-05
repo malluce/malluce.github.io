@@ -31,11 +31,10 @@ function legacyAPIUpdate(event) {
 }
 
 function update(lux) {
-    console.log("new: " + lux)
     slidingWindow.push(lux)
-    console.log(slidingWindow)
 
     if (slidingWindow.length < slidingWindowLength) {
+        setLux("waiting...")
         return
     } else if (slidingWindow.length > slidingWindowLength) {
         slidingWindow.shift()
@@ -50,12 +49,10 @@ function update(lux) {
         avg += slidingWindow[i]
     }
 
-    console.log("avg sum: " + avg)
-
     avg /= slidingWindow.length
 
     setLux(avg)
-    console.log("avg: " + avg)
+    
     if(avg > currentThreshold) {
         light()
     } else {
