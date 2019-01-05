@@ -11,7 +11,7 @@ var currentStyle = "light";
 var currentThreshold = undefined
 
 var slidingWindow = []
-var currentIndex = 0
+var lastTime = 0
 var slidingWindowLength = undefined
 
 /**
@@ -31,6 +31,10 @@ function legacyAPIUpdate(event) {
 }
 
 function update(lux) {
+    var d = new Date();
+    console.log("since last: " + d.getTime() - lastTime)
+    lastTime = d.getTime()
+
     slidingWindow.push(lux)
 
     if (slidingWindow.length < slidingWindowLength) {
@@ -52,7 +56,7 @@ function update(lux) {
     avg /= slidingWindow.length
 
     setLux(avg)
-    
+
     if(avg > currentThreshold) {
         light()
     } else {
