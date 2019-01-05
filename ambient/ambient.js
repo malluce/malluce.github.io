@@ -32,7 +32,7 @@ function legacyAPIUpdate(event) {
 
 function update(lux) {
     var d = new Date();
-    console.log("since last: " + d.getTime() - lastTime)
+    console.log("since last: " + (d.getTime() - lastTime))
     lastTime = d.getTime()
 
     slidingWindow.push(lux)
