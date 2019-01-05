@@ -38,7 +38,7 @@ function update(lux) {
     if (slidingWindow.length < slidingWindowLength) {
         return
     } else if (slidingWindow.length > slidingWindowLength) {
-        if(slidingWindow.length + 1 != slidingWindowLength) {
+        if(slidingWindow.length != slidingWindowLength + 1) {
             console.error("unexpected window size: " + slidingWindow.length)
         }
         slidingWindow.shift()
@@ -46,9 +46,11 @@ function update(lux) {
 
     var avg = 0
 
-    for (val in slidingWindow) {
-        avg += val
+    for (var i = 0; i < slidingWindow.length; i++) {
+        avg += slidingWindow[i]
     }
+
+    console.log("avg sum: " + avg)
 
     avg /= slidingWindow.length
 
