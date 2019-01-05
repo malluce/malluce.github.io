@@ -11,7 +11,6 @@ var currentStyle = "light";
 var currentThreshold = undefined
 
 var slidingWindow = []
-var lastTime = 0
 var slidingWindowLength = undefined
 
 /**
@@ -31,32 +30,30 @@ function legacyAPIUpdate(event) {
 }
 
 function update(lux) {
-    var d = new Date();
-    console.log("since last: " + (d.getTime() - lastTime))
-    lastTime = d.getTime()
-
+    // append new value to sliding window
     slidingWindow.push(lux)
 
-    if (slidingWindow.length < slidingWindowLength) {
+    if (slidingWindow.length < slidingWindowLength) { // sliding window not filled yet
         setLux("waiting...")
         return
-    } else if (slidingWindow.length > slidingWindowLength) {
-        slidingWindow.shift()
-        if(slidingWindow.length != slidingWindowLength) {
+    } else if (slidingWindow.length > slidingWindowLength) { // sliding windows was full before pushing
+        slidingWindow.shift() // hence remove first value
+        if(slidingWindow.length != slidingWindowLength) { // check size
             console.error("unexpected window size: " + slidingWindow.length)
         }
     }
 
+    // compute average over current sliding window
     var avg = 0
-
     for (var i = 0; i < slidingWindow.length; i++) {
         avg += slidingWindow[i]
     }
-
     avg /= slidingWindow.length
 
+    // set debug text
     setLux(avg)
 
+    // adapt style
     if(avg > currentThreshold) {
         light()
     } else {
@@ -64,10 +61,7 @@ function update(lux) {
     }
 }
 
-/**
- * 
- * @param {*} threshold 
- */
+
 function start(threshold, slidingWindowLen) {
     currentThreshold = threshold
     slidingWindowLength = slidingWindowLen
@@ -88,6 +82,9 @@ function start(threshold, slidingWindowLen) {
     }
 }
 
+/**
+ * Removes event listeners from sensor, resets debug texts and resets sliding window.
+ */
 function stop() {
     if ("AmbientLightSensor" in window) { // generic sensor API (Chrome etc.)
         console.log("removing event listener from AmbientLightSensor")
