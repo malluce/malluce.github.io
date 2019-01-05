@@ -38,10 +38,10 @@ function update(lux) {
     if (slidingWindow.length < slidingWindowLength) {
         return
     } else if (slidingWindow.length > slidingWindowLength) {
-        if(slidingWindow.length != slidingWindowLength + 1) {
+        slidingWindow.shift()
+        if(slidingWindow.length != slidingWindowLength) {
             console.error("unexpected window size: " + slidingWindow.length)
         }
-        slidingWindow.shift()
     }
 
     var avg = 0
