@@ -46,12 +46,12 @@ function update(lux) {
     // compute median on current sliding window
     var median = undefined
     var sortedSlidingWindow = slidingWindow.slice().sort((a, b) => (a - b))
-    var middle = (slidingWindow.length - 1) / 2
+    var middle = Math.floor((slidingWindow.length - 1) / 2)
 
     if (slidingWindow.length % 2 == 0) {
         median = 0.5 * (sortedSlidingWindow[middle] + sortedSlidingWindow[middle + 1])
     } else {
-        median = sortedSlidingWindow[Math.floor(middle)]
+        median = sortedSlidingWindow[middle]
     }
 
     console.log(slidingWindow)
