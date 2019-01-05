@@ -44,7 +44,7 @@ function update(lux) {
     }
 
     // compute average over current sliding window
-    var avg = 0
+    /*var avg = 0
     for (var i = 0; i < slidingWindow.length; i++) {
         avg += slidingWindow[i]
     }
@@ -55,6 +55,17 @@ function update(lux) {
 
     // adapt style
     if(avg > currentThreshold) {
+        light()
+    } else {
+        dark()
+    }*/
+
+    
+    var median = slidingWindow.sort()[slidingWindow.length / 2]
+
+    setLux(median)
+
+    if (median > currentThreshold) {
         light()
     } else {
         dark()
