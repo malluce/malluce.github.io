@@ -43,28 +43,16 @@ function update(lux) {
         }
     }
 
-    // compute average over current sliding window
-    /*var avg = 0
-    for (var i = 0; i < slidingWindow.length; i++) {
-        avg += slidingWindow[i]
-    }
-    avg /= slidingWindow.length
-
-    // set debug text
-    setLux(avg)
-
-    // adapt style
-    if(avg > currentThreshold) {
-        light()
-    } else {
-        dark()
-    }*/
-
-    
+    // compute median on current sliding window
     var median = slidingWindow.sort()[slidingWindow.length / 2]
 
+    console.log(slidingWindow.sort())
+    console.log(median)
+
+    // set debug text
     setLux(median)
 
+    // adapt css based on median
     if (median > currentThreshold) {
         light()
     } else {
