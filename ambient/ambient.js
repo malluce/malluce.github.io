@@ -44,9 +44,9 @@ function update(lux) {
     }
 
     // compute median on current sliding window
-    var median = slidingWindow.sort()[slidingWindow.length / 2]
+    var median = slidingWindow.sort((a, b) => a - b)[slidingWindow.length / 2]
 
-    console.log(slidingWindow.sort())
+    console.log(slidingWindow.sort((a,b) => a-b))
     console.log(median)
 
     // set debug text
