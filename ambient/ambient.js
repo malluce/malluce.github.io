@@ -133,6 +133,8 @@ function light() {
     // change style
     if (currentStyle != "light") {
         setAmbientAwareStyle("light.css")
+
+        setAddressBarColor("#FFFFFF")
     }
 
     currentStyle = "light"
@@ -145,6 +147,8 @@ function dark() {
     // change style
     if (currentStyle != "dark") {
         setAmbientAwareStyle("dark.css")
+
+        setAddressBarColor("#000000")
     }
 
     currentStyle = "dark"
@@ -165,4 +169,8 @@ function setLuxClass(className) {
 
 function setAmbientAwareStyle(styleSheetHref) {
     document.getElementById("ambient-aware-style").setAttribute("href", styleSheetHref)
+}
+
+function setAddressBarColor(color) {
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", color)
 }
